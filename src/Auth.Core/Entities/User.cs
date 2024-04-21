@@ -8,8 +8,8 @@ public class User : AuditableEntity<Guid>
     public string LastName { get; set; }
     public int Age { get; set; }
     public string Email { get; set; }
-    public string PasswordHash { get; set; }
-    public string PasswordSalt { get; set; }
+    public byte[] PasswordHash { get; set; }
+    public byte[] PasswordSalt { get; set; }
     
     //Relations
     public virtual Role Role { get; set; }
