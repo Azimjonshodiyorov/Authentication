@@ -11,12 +11,12 @@ namespace Auth.Application.Commands.Refresh;
 public class RefreshCommandHandler : IRequestHandler<RefreshCommand , AuthenticationResponse>
 {
     private readonly ITokenManager _tokenManager;
-    private readonly IUserRepository<User, Guid> _userRepository;
+    private readonly IUserRepository<User> _userRepository;
     private readonly IRefreshTokenService _refreshTokenService;
 
     public RefreshCommandHandler(
         ITokenManager tokenManager ,
-        IUserRepository<User , Guid> userRepository ,
+        IUserRepository<User > userRepository ,
         IRefreshTokenService refreshTokenService)
     {
         _tokenManager = tokenManager;

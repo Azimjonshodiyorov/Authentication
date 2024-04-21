@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Auth.Infrastructure.Repositories
 {
-    public class RepositoryBase<T ,  TId> : IRepositoryBase<T ,  TId> where T: BaseEntity<TId>
+    public class RepositoryBase<T> : IRepositoryBase<T> where T: BaseEntity<Guid>
     {
         private readonly DbContext _dbContext;
 
@@ -17,7 +17,7 @@ namespace Auth.Infrastructure.Repositories
             return this._dbContext.Set<T>();
         }
 
-        public async ValueTask<T> GetByIdAsync(TId id)
+        public async ValueTask<T> GetByIdAsync(Guid id)
         {
             return await this._dbContext.Set<T>().FirstOrDefaultAsync(x => x.Id.Equals(id));
         }
@@ -36,7 +36,7 @@ namespace Auth.Infrastructure.Repositories
             return update.Entity;
         }
 
-        public async ValueTask<T> DeleteByIdAsync(TId id)
+        public async ValueTask<T> DeleteByIdAsync(Guid id)
         {
             var delete = await GetByIdAsync(id);
             this._dbContext.Set<T>().Remove(delete);

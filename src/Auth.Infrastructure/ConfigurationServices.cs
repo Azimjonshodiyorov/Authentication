@@ -12,8 +12,9 @@ public static class ConfigurationServices
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services , IConfiguration configuration)
     {
-        services.AddScoped<IUserRepository<User, Guid>, UserRepository>();
-        services.AddScoped<IRoleRepository<Role, Guid>, RoleRepository>();
+        services.AddScoped(typeof(IRepositoryBase<>) , typeof(RepositoryBase<>));
+        services.AddScoped<IUserRepository<User>, UserRepository>();
+        services.AddScoped<IRoleRepository<Role>, RoleRepository>();
 
         var connection = configuration.GetConnectionString("ConnectionString");
         services.AddDbContext<AppDbContext>(option =>option.UseNpgsql(connection));

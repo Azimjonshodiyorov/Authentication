@@ -9,11 +9,11 @@ namespace Auth.Application.Commands.Register;
 
 public class RegisterCommandHandler : IRequestHandler<RegisterCommand ,Guid>
 {
-    private readonly IUserRepository<User, Guid> _userRepository;
+    private readonly IUserRepository<User> _userRepository;
     private readonly IPasswordManager _passwordManager;
-    private readonly IRoleRepository<Role, Guid> _roleRepository;
+    private readonly IRoleRepository<Role> _roleRepository;
 
-    public RegisterCommandHandler(IUserRepository<User , Guid> userRepository , IPasswordManager passwordManager , IRoleRepository<Role , Guid> roleRepository)
+    public RegisterCommandHandler(IUserRepository<User> userRepository , IPasswordManager passwordManager , IRoleRepository<Role > roleRepository)
     {
         _userRepository = userRepository;
         _passwordManager = passwordManager;
