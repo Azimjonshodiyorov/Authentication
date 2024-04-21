@@ -1,6 +1,8 @@
-﻿namespace Auth.Core.Entities;
+﻿using Auth.Core.Common;
 
-public class RefreshToken
+namespace Auth.Core.Entities;
+
+public class RefreshToken : AuditableEntity<Guid>
 {
     public string Token { get; set; }
     public DateTime Expires { get; set; }

@@ -8,7 +8,7 @@ namespace Auth.WebAPI.Controllers;
 [Route("api/[controller]")]
 public class BaseController : ControllerBase
 {
-    private readonly IMediator Mediator;
+    protected readonly IMediator Mediator;
 
     public BaseController(IMediator mediator)
     {

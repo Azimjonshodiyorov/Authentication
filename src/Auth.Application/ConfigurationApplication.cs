@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Auth.Application.AutoMapperProfile;
 using Auth.Application.Security;
 using Auth.Application.Security.Interfaces;
 using Auth.Application.Services;
@@ -14,6 +15,7 @@ public static class ConfigurationApplication
         services.AddScoped<IRefreshTokenService, RefreshTokenService>();
         services.AddScoped<IPasswordManager, PasswordManager>();
         services.AddScoped<ITokenManager, TokenManager>();
+        services.AddAutoMapper(typeof(AotoMapper));
         services.AddMediatR(x => x.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
         return services;
     }

@@ -7,6 +7,10 @@ namespace Auth.Infrastructure.DataContext;
 
 public class AppDbContext : DbContext
 {
+    public AppDbContext()
+    {
+        
+    }
     public AppDbContext(DbContextOptions<AppDbContext> options) 
         : base(options)
     {
@@ -25,17 +29,17 @@ public class AppDbContext : DbContext
         
         base.OnModelCreating(modelBuilder);
     }
-    /*public   Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new CancellationToken())
+    public   Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new CancellationToken())
     {
         foreach (var entity in ChangeTracker
                      .Entries()
-                     .Where(x => x is { Entity: AuditableEntity<T>, State: EntityState.Modified })
+                     .Where(x => x is { Entity: AuditableEntity<Guid>, State: EntityState.Modified })
                      .Select(x => x.Entity)
-                     .Cast<AuditableEntity<T>>()) 
+                     .Cast<AuditableEntity<Guid>>()) 
         {
             entity.UpdateAt = DateTime.Now;
         }
         
         return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
-    }*/
+    }
 }
