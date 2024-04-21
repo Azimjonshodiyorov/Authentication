@@ -8,4 +8,6 @@ public class AuthenticationController : BaseController
         : base(mediator)
     {
     }
+    
+    
 }

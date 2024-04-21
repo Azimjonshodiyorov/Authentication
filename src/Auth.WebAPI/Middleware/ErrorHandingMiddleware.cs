@@ -1,0 +1,34 @@
+﻿using Auth.Application.Exceptions;
+
+namespace Auth.WebAPI.Middleware;
+
+public class ErrorHandingMiddleware : IMiddleware
+{
+    public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+    {
+        try
+        {
+            await next.Invoke(context);
+        }
+        catch (AccessDeniedException exception)
+        {
+            context.Response.StatusCode = StatusCodes.Status403Forbidden;
+            await context.Response.WriteAsync(exception.Message);
+        }
+        catch (AlreadyExistException exception)
+        {
+            context.Response.StatusCode = StatusCodes.Status409Conflict;
+            await context.Response.WriteAsync(exception.Message);
+        }
+        catch (UnauthorizedException exception)
+        {
+            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            await context.Response.WriteAsync(exception.Message);
+        }
+        catch (Exception)
+        {
+            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+            await context.Response.WriteAsync("Something went wrong");
+        }
+    }
+}
