@@ -5,7 +5,7 @@ namespace Auth.Core.Entities;
 
 public class Role : AuditableEntity<Guid>
 {
-    public RoleName RoleName { get; set; }
+    public required RoleName RoleName { get; set; }
     
     //Relations
     public virtual ICollection<User> Users { get; set; }

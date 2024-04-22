@@ -8,10 +8,10 @@ namespace Auth.Application.Commands.Logout;
 
 public class LogoutCommandHandler : IRequestHandler<LogoutCommand , Unit>
 {
-    private readonly IUserRepository<User> _userRepository;
+    private readonly IUserRepository _userRepository;
     private readonly IRefreshTokenService _tokenService;
 
-    public LogoutCommandHandler(IUserRepository<User> userRepository , IRefreshTokenService tokenService)
+    public LogoutCommandHandler(IUserRepository userRepository , IRefreshTokenService tokenService)
     {
         _userRepository = userRepository;
         _tokenService = tokenService;

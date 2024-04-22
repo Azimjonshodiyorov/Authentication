@@ -16,9 +16,9 @@ public class AppDbContext : DbContext
     {
     }
 
-    public DbSet<User> Users { get; init; }
-    public DbSet<Role> Roles { get; init; }
-    public DbSet<RefreshToken> RefreshTokens { get; init; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<Role> Roles { get; set; }
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

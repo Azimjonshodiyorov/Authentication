@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Auth.Infrastructure.Repositories;
 
-public class UserRepository : RepositoryBase<User> , IUserRepository<User >
+public class UserRepository : RepositoryBase<User> , IUserRepository
 {
     private readonly AppDbContext _dbContext;
 

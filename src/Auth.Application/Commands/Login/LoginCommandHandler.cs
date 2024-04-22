@@ -10,13 +10,13 @@ namespace Auth.Application.Commands.Login;
 
 public class LoginCommandHandler : IRequestHandler<LoginCommand , AuthenticationResponse>
 {
-    private readonly IUserRepository<User> _userRepository;
+    private readonly IUserRepository _userRepository;
     private readonly IPasswordManager _passwordManager;
     private readonly ITokenManager _tokenManager;
     private readonly IConfiguration _configuration;
 
     public LoginCommandHandler(
-        IUserRepository<User> userRepository ,
+        IUserRepository userRepository ,
         IPasswordManager passwordManager , 
         ITokenManager tokenManager , 
         IConfiguration configuration)

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Auth.Infrastructure.Repositories;
 
-public class RoleRepository : RepositoryBase<Role > , IRoleRepository<Role>
+public class RoleRepository : RepositoryBase<Role> , IRoleRepository
 {
     private readonly AppDbContext _dbContext;
 

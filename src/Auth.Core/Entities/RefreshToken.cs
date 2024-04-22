@@ -4,11 +4,11 @@ namespace Auth.Core.Entities;
 
 public class RefreshToken : AuditableEntity<Guid>
 {
-    public string Token { get; set; }
-    public DateTime Expires { get; set; }
+    public required string Token { get; set; }
+    public required DateTime Expires { get; set; }
     
     //Relations
 
-    public virtual User User { get; set; }
+    public virtual required User User { get; set; }
     public Guid UserId { get; set; }
 }

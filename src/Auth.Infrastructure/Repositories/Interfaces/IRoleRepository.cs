@@ -1,8 +1,9 @@
-﻿using Auth.Core.Enum;
+﻿using Auth.Core.Entities;
+using Auth.Core.Enum;
 
 namespace Auth.Infrastructure.Repositories.Interfaces;
 
-public interface IRoleRepository<T> : IRepositoryBase<T>
+public interface IRoleRepository : IRepositoryBase<Role>
 {
-    ValueTask<T> GetRoleByValueAsync(RoleName roleName);
+    ValueTask<Role> GetRoleByValueAsync(RoleName roleName);
 }

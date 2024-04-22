@@ -1,7 +1,9 @@
-﻿namespace Auth.Infrastructure.Repositories.Interfaces;
+﻿using Auth.Core.Entities;
 
-public interface IUserRepository<T > : IRepositoryBase<T>
+namespace Auth.Infrastructure.Repositories.Interfaces;
+
+public interface IUserRepository : IRepositoryBase<User>
 {
-    ValueTask<T?> GetUserByEmailAsync(string email);
-    ValueTask<T?> GetUserByRefreshTokenAsync(string refreshToken);
+    ValueTask<User?> GetUserByEmailAsync(string email);
+    ValueTask<User?> GetUserByRefreshTokenAsync(string refreshToken);
 }
