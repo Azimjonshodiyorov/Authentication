@@ -1,5 +1,4 @@
-﻿using System.Net;
-using Auth.Application.Commands.Login;
+﻿using Auth.Application.Commands.Login;
 using Auth.Application.Commands.Logout;
 using Auth.Application.Commands.Refresh;
 using Auth.Application.Commands.Register;
@@ -41,7 +40,6 @@ public class AuthenticationController : BaseController
     }
 
     [HttpPost("refresh")]
-    [AllowAnonymous]
     [ProducesResponseType(typeof(JwtToken) , StatusCodes.Status201Created)]
     public async Task<ActionResult<JwtToken>> RefreshToken()
     {

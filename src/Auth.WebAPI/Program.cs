@@ -1,6 +1,7 @@
 using Auth.Application;
 using Auth.Infrastructure;
 using Auth.WebAPI;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,23 @@ builder.Services.AddCors(options =>
                 .AllowCredentials();
         });
 });
+builder.Services.AddAuthentication()
+    .AddJwtBearer(IdentityConstants.BearerScheme);
+
+builder.Services.AddAuthorizationBuilder().AddPolicy(
+    "api",
+    p =>
+    {
+        p.RequireAuthenticatedUser();
+        p.AddAuthenticationSchemes(IdentityConstants.BearerScheme);
+    }
+);
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("RequireAdministratorRole",
+        policy => policy.RequireRole("Admin"));
+});
 
 var app = builder.Build();
 
@@ -34,7 +52,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

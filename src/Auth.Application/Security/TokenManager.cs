@@ -28,9 +28,9 @@ public class TokenManager : ITokenManager
 
         var settings = _configuration.GetSection("Authentication:Key").Value!;
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(settings));
-        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        var descriptore = new SecurityTokenDescriptor()
+        var descriptore = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
             Expires = DateTime.UtcNow.AddMinutes(int.Parse(_configuration.GetSection("Authentication:TokenLifeTimeMin")

@@ -29,13 +29,12 @@ public static class ConfigureServices
                 };
             });
 
+        
         /*** Swagger config ***/
         services.AddSwaggerGen(c =>
         {
             c.AddSecurityDefinition("oauth2 ROLE_USER", new OpenApiSecurityScheme
             {
-                Description =
-                    """ Standard JWT Bearer Authorization with refresh token. Example: "Bearer" {your token} """,
                 In = ParameterLocation.Header,
                 Name = "Authorization",
                 Type = SecuritySchemeType.ApiKey
