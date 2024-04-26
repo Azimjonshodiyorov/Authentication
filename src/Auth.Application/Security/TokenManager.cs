@@ -28,7 +28,7 @@ public class TokenManager : ITokenManager
 
         var settings = _configuration.GetSection("Authentication:Key").Value!;
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(settings));
-        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
         var descriptore = new SecurityTokenDescriptor
         {

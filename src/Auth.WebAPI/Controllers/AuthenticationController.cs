@@ -41,15 +41,15 @@ public class AuthenticationController : BaseController
 
     [HttpPost("refresh")]
     [ProducesResponseType(typeof(JwtToken) , StatusCodes.Status201Created)]
-    public async Task<ActionResult<JwtToken>> RefreshToken()
+    public async Task<ActionResult<JwtToken>> RefreshToken([FromBody]RefreshCommand refreshCommand)
     {
         var userRefreshToken = Request.Cookies["refreshToken"];
         if (userRefreshToken is null)
             return BadRequest();
 
-        var result = await Mediator.Send(new RefreshCommand(userRefreshToken));
+        var result = await Mediator.Send(refreshCommand);
         CookieManager.SetCookie(Response , "refreshToken" , result.CookieToken.token , result.CookieToken.expires);
-        return Ok(result);
+        return Ok(result.JwtToken);
     }
 
 

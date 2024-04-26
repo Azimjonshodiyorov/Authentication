@@ -12,35 +12,9 @@ builder.Services.AddPresentationServices(builder.Configuration);
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices();
 builder.Services.AddSwaggerGen();
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll",
-        builder =>
-        {
-            builder
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .AllowCredentials();
-        });
-});
-builder.Services.AddAuthentication()
-    .AddJwtBearer(IdentityConstants.BearerScheme);
 
-builder.Services.AddAuthorizationBuilder().AddPolicy(
-    "api",
-    p =>
-    {
-        p.RequireAuthenticatedUser();
-        p.AddAuthenticationSchemes(IdentityConstants.BearerScheme);
-    }
-);
 
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("RequireAdministratorRole",
-        policy => policy.RequireRole("Admin"));
-});
+
 
 var app = builder.Build();
 
@@ -51,6 +25,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors();
+app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
 
