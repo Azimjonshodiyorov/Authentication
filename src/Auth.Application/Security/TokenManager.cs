@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Auth.Application.Security.Interfaces;
 using Auth.Core.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -25,17 +26,21 @@ public class TokenManager : ITokenManager
             new Claim(ClaimTypes.Email, user.Email),
             new Claim(ClaimTypes.Role, user.Role.RoleName.ToString())
         };
+        
+        
 
         var settings = _configuration.GetSection("Authentication:Key").Value!;
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(settings));
-        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Authentication:Key"]));
+        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
         var descriptore = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddMinutes(int.Parse(_configuration.GetSection("Authentication:TokenLifeTimeMin")
-                .Value!)),
+            Expires = DateTime.UtcNow.AddMinutes(int.Parse(_configuration["Authentication:TokenLifeTimeMin"])),
+            Issuer = _configuration["Jwt:Issuer"],
+            Audience = _configuration["Jwt:Audience"],
             SigningCredentials = credentials,
+            
         };
 
         var handler = new JwtSecurityTokenHandler();
@@ -49,7 +54,7 @@ public class TokenManager : ITokenManager
         {
             Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(256)),
             Expires = DateTime.UtcNow.AddDays(
-                int.Parse(_configuration.GetSection("Authentication:RefreshTokenLifetimeDays").Value!)),
+                int.Parse(_configuration["Authentication:RefreshTokenLifetimeDays"])),
             User = user
         };
     }

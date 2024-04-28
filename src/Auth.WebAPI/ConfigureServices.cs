@@ -12,25 +12,29 @@ public static class ConfigureServices
         IConfiguration configuration)
     {
 
-        /*** Auth config ***/
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        }).AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
             {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
-                        .GetBytes(configuration.GetSection("Authentication:Key").Value!)),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.FromMinutes(1) 
-                };
-            });
+                
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
+                    .GetBytes(configuration["Authentication:Key"])),
+                ValidateIssuer = true,
+                ValidIssuer = configuration["Authentication:Issuer"],
+                ValidAudience = configuration["Authentication:Audience"],
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero ,
+            };
+        });;
 
-        services.AddControllers();
-        
-        /*** Swagger config ***/
+       
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo
@@ -40,7 +44,7 @@ public static class ConfigureServices
                 Description = ".NET 8 Web API"
             });
             
-            c.AddSecurityDefinition("oauth2 ROLE_USER", new OpenApiSecurityScheme
+            c.AddSecurityDefinition("Auth API", new OpenApiSecurityScheme
             {
                 Name = "Authorization",
                 Type = SecuritySchemeType.ApiKey,
@@ -54,7 +58,6 @@ public static class ConfigureServices
 
         services.AddCors();
         services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen();
 
         return services;
     }
