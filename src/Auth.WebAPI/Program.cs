@@ -6,13 +6,12 @@ using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddAuthorization();
-builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddPresentationServices(builder.Configuration);
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices();
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
-builder.Services.AddSwaggerGen();
+builder.Services.AddAuthorization();
 
 
 
@@ -27,9 +26,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors();
+app.UseRouting();
 app.UseHttpsRedirection();
+app.MapControllers();
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapControllers();
 
 app.Run();

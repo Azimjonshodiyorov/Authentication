@@ -4,7 +4,6 @@ using System.Security.Cryptography;
 using System.Text;
 using Auth.Application.Security.Interfaces;
 using Auth.Core.Entities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 

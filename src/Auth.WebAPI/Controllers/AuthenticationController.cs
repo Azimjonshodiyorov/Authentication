@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Auth.WebAPI.Controllers;
-[Authorize]
+[ApiController]
 [Route("api/auth")]
 public class AuthenticationController : BaseController
 {

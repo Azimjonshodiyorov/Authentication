@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace Auth.WebAPI.Controllers;
 
 [Authorize]
-public class FileController : BaseController
+
+[Route("api/[controller]")]
+public class FileController : ControllerBase
 {
     // GET
     [HttpGet]
@@ -14,7 +16,7 @@ public class FileController : BaseController
         return Ok();
     }
 
-    public FileController(IMediator mediator) : base(mediator)
+    public FileController(IMediator mediator) : base()
     {
     }
 }

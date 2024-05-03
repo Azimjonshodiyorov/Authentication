@@ -16,8 +16,8 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand , Authentication
     private readonly IConfiguration _configuration;
 
     public LoginCommandHandler(
-        IUserRepository userRepository ,
-        IPasswordManager passwordManager , 
+        IUserRepository userRepository,
+        IPasswordManager passwordManager, 
         ITokenManager tokenManager , 
         IConfiguration configuration)
     {
