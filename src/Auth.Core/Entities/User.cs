@@ -15,4 +15,7 @@ public class User : AuditableEntity<Guid>
     public virtual required  Role Role { get; set; }
     public Guid RoleId { get; set; }
     public virtual ICollection<RefreshToken> RefreshTokens { get; set; }
+    
+    
+    public virtual ICollection<FileData> FileDatas { get; set; }
 }

@@ -15,6 +15,7 @@ public static class ConfigurationServices
         services.AddScoped(typeof(IRepositoryBase<>) , typeof(RepositoryBase<>));
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IRoleRepository, RoleRepository>();
+        services.AddScoped<IFileDataRepository, FileDataRepository>();
 
         var connection = configuration.GetConnectionString("ConnectionString");
         services.AddDbContext<AppDbContext>(option =>option.UseNpgsql(connection));
