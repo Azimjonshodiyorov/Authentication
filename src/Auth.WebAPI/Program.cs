@@ -14,8 +14,6 @@ builder.Services.AddControllers();
 builder.Services.AddAuthorization();
 
 
-
-
 var app = builder.Build();
 
 
@@ -31,5 +29,7 @@ app.UseHttpsRedirection();
 app.MapControllers();
 app.UseAuthentication();
 app.UseAuthorization();
+
+
 
 app.Run();
